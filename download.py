@@ -1,16 +1,18 @@
 """
 Download the 4000 most recent cs.CL papers and store them to a pickle file.
 """
-import feedparser
 import pickle
 import time
+
+import feedparser
+from tqdm import tqdm
 
 
 QUERY_URL = 'http://export.arxiv.org/api/query?search_query=cat:cs.CL&sortBy=submittedDate&start={}&max_results={}'
 
 if __name__ == '__main__':
     papers = []
-    for i in range(0, 4000, 50):
+    for i in tqdm(range(0, 4000, 50)):
         query = QUERY_URL.format(i, 50)
         res = feedparser.parse(query)
         for e in res.entries:
